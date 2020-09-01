@@ -3,40 +3,32 @@ import { SurveyQuestionUncontrolledElement } from "./reactquestionelement";
 import { QuestionTextModel } from "../question_text";
 import { ReactQuestionFactory } from "./reactquestionfactory";
 
-export class SurveyQuestionText extends SurveyQuestionUncontrolledElement<
+export class SurveyQuestionCustomText extends SurveyQuestionUncontrolledElement<
   QuestionTextModel
 > {
   constructor(props: any) {
     super(props);
-    this.state={
-      value:""
-    }
   }
   render(): JSX.Element {
     if (!this.question) return null;
     var cssClasses = this.question.cssClasses;
-    var onBlur = (event)=>{
-      this.setState({value:event.target.value})
-      !this.question.isInputTextUpdate
-      ? this.updateValueOnEvent(event)
+    var onBlur = !this.question.isInputTextUpdate
+      ? this.updateValueOnEvent
       : null;
-    }
-    var onInput = (event)=>{
-      this.setState({value:event.target.value})
-      this.question.isInputTextUpdate
-      ? this.updateValueOnEvent(event)
+    var onInput = this.question.isInputTextUpdate
+      ? this.updateValueOnEvent
       : null;
-    }
     var placeHolder =
       this.question.inputType === "range" || this.question.isReadOnly
         ? ""
         : this.question.placeHolder;
+        debugger
     return (
-      <>
-      <input
+      
+    <>
+      {/* <input
         id={this.question.inputId}
         disabled={this.isDisplayMode}
-        value={this.state.value}
         className={cssClasses.root}
         type={this.question.inputType}
         ref={input => (this.control = input)}
@@ -52,25 +44,13 @@ export class SurveyQuestionText extends SurveyQuestionUncontrolledElement<
         aria-label={this.question.locTitle.renderedHtml} 
         aria-invalid={this.question.errors.length > 0}
         aria-describedby={this.question.errors.length > 0 ? this.question.id + '_errors' : null}
-      />
-    { this.question.inputType === "range"?
-    <div style={{display:"flex",justifyContent:"space-between"}}>
-      <div>
-      {this.question.min}
-      </div>
-      <div>
-      {this.state.value}
-      </div>
-      <div>
-      {this.question.max}
-      </div>
-      </div>
-    :null}
-      </>
+      /> */}
+      <div> "value" </div>
+    </>
     );
   }
 }
 
-ReactQuestionFactory.Instance.registerQuestion("text", props => {
-  return React.createElement(SurveyQuestionText, props);
+ReactQuestionFactory.Instance.registerQuestion("customText", props => {
+  return React.createElement(SurveyQuestionCustomText, props);
 });

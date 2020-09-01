@@ -39,6 +39,16 @@ function init() {
         isRequired: true
       },
       {
+        name: "range",
+        type: "text",
+        inputType:"range",
+        min:10,
+        max:100,
+        title: "Text",
+        placeHolder: "Jon Snow",
+        isRequired: true
+      },
+      {
         name: "birthdate",
         type: "text",
         inputType: "date",
